@@ -71,17 +71,48 @@ sub display (@) {
 before \&manage_layout;
 before \&manage_type;
 
+get '/product' => \&product;
+get '/search'  => \&search;
+
 any qr{.*} => \&DD ;
 
+#---------------------------------------------------------------------------
+#  CODE
+#---------------------------------------------------------------------------
 sub DD {
    display( 
-   { PARAM => {params},
-     VARS  => vars,
-     SPLAT => [splat],
-     URI   => request->path,
-   });
+      { PARAM => {params},
+        VARS  => vars,
+        SPLAT => [splat],
+        URI   => request->path,
+      }
+   );
 };
 
+sub search {
+   display(
+      [
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+         { this => [qw{will hold product data}] },
+      ]
+   );
+}
 
+sub product {
+   display(
+      { this => [qw{will hold product data}] }
+   );
+}
 
 true;
