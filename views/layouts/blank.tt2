@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>P</title>
+<meta charset=UTF-8" />
+</head>
+<body>
+[% content %]
+</body>
+</html>
