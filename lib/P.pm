@@ -31,7 +31,8 @@ sub manage_type {
    }
 
    if ( $type =~ m/(?:json|xml|yaml)/ ) {
-      set serializer => $type
+      set serializer => $type;
+      var serialize  => 1; # used in display to trigger template or not
    }
 
    var type => lc($type);
@@ -39,7 +40,13 @@ sub manage_type {
 
 
 sub display (@) {
-   if ( defined vars->{type} ) {
+
+
+   # set layout
+   layout vars->{layout};
+DUMP {VAR => vars};
+
+   unless ( vars->{serialize} ) {
       if ( vars->{type} eq 'data' ) {
          return template data => {data => D @_};
       }
@@ -49,6 +56,8 @@ sub display (@) {
       unless ( -r Dancer::Template::Abstract->new->view($template)) {
          $template = join '/', grep{defined} vars->{template_dir}, 'default';
       }
+
+      DUMP {TEMPLATE => $template, DATA => \@_};
 
       return scalar(@_) ? template $template => {data => @_} : template $template;
    }
@@ -67,7 +76,6 @@ before \&manage_type;
 any qr{.*} => \&DD ;
 
 sub DD {
-DUMP {IN => \@_};
    display( 
    { PARAM => {params},
      VARS  => vars,
