@@ -1,0 +1,5 @@
+[% USE Dumper %]
+    
+<pre>
+[% Dumper.dump_html(data) %]
+</pre>
