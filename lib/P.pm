@@ -30,21 +30,23 @@ sub manage_type {
       delete request->{_query_params}->{type}; # remove it from here too
    }
 
+   $type = lc($type); #standardize
+
    if ( $type =~ m/(?:json|xml|yaml)/ ) {
       set serializer => uc($type);
       var serialize  => 1; # used in display to trigger template or not
    }
+   elsif ($type eq 'data') {
+      var layout => 'blank';
+   }
 
-   var type => lc($type);
+   var type => $type;
 };
 
 
 sub display (@) {
-
-
    # set layout
    layout vars->{layout};
-DUMP {VAR => vars};
 
    unless ( vars->{serialize} ) {
       if ( vars->{type} eq 'data' ) {
@@ -56,8 +58,6 @@ DUMP {VAR => vars};
       unless ( -r Dancer::Template::Abstract->new->view($template)) {
          $template = join '/', grep{defined} vars->{template_dir}, 'default';
       }
-
-      DUMP {TEMPLATE => $template, DATA => \@_};
 
       return scalar(@_) ? template $template => {data => @_} : template $template;
    }
