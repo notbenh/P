@@ -43,7 +43,7 @@ sub manage_type {
 };
 
 sub display (@) {
-   # set layout
+   # set layout (done here so that it can be modified durring the process)
    layout vars->{layout};
 
    unless ( vars->{serialize} ) {
