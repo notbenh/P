@@ -31,7 +31,7 @@ sub manage_type {
    }
 
    if ( $type =~ m/(?:json|xml|yaml)/ ) {
-      set serializer => $type;
+      set serializer => uc($type);
       var serialize  => 1; # used in display to trigger template or not
    }
 
