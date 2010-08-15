@@ -2,7 +2,6 @@ package P;
 use Dancer ':syntax';
 use Util::Log;
 
-
 sub manage_layout {
    if( my $layout = delete params->{layout} ) { # no point in keeping it in the params stream, will only complicate things
       my $template = Dancer::Template::Abstract->new->view( join '/', 'layouts', $layout );
@@ -42,7 +41,6 @@ sub manage_type {
 
    var type => $type;
 };
-
 
 sub display (@) {
    # set layout
